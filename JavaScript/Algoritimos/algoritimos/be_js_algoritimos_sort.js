@@ -1,7 +1,8 @@
 const livros = require('./be_js_algoritimos_lista');
 const menorValor = require('./be_js_algoritimos_menorValor');
 
-
+/*
+método com for.
 for(let atual = 0; atual < livros.length; atual++){
     let menor = menorValor(livros, atual);
 
@@ -15,5 +16,17 @@ for(let atual = 0; atual < livros.length; atual++){
 
     // console.log(livros);
 }
+
+*/
+//método com forEach
+livros.forEach((_livro, indice) => {
+ let menor = menorValor(livros, indice)
+
+ let livroAtual = livros[indice];
+ let livroMenorPreco = livros[menor];
+
+ livros[indice] = livroMenorPreco
+ livros[menor] = livroAtual 
+})
 
 console.log(livros);
