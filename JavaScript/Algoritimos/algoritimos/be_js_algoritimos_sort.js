@@ -1,7 +1,7 @@
 const livros = require('./be_js_algoritimos_lista');
 const menorValor = require('./be_js_algoritimos_menorValor');
 
-/*
+/* SELECTION SORT
 método com for.
 for(let atual = 0; atual < livros.length; atual++){
     let menor = menorValor(livros, atual);
