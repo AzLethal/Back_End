@@ -1,30 +1,41 @@
 import chalk from 'chalk';
 import fs from 'fs';
 
-const paragrafo = 'Texto retornado por uma função!';
-
-console.log(chalk.blue.bold('Olá Mundo!'));
-// acessado através do node index.js no terminal
-
-
-function texto(string) {
-    return string;
+function trataErro(erro) {
+    throw new Error(chalk.red(erro.code, 'Arquivo inexistente'));
 }
 
-console.log(texto(paragrafo));
+//promises with "then"
+/*
+function pegaArquivo(path) {
+    const encoding = 'utf-8';
+    fs.promises.readFile(path, encoding)
+        .then((texto) => console.log(chalk.green(texto)))
+        .catch(erro => trataErro(erro));
+}
+*/
 
-//encadear métodos para colorir texto, cor de fundo e texto em negrito
-console.log(chalk.blue.bgWhite.bold('Alura'));
+//promises with "async e await"
+async function pegaArquivo(path) {
+    const encoding = 'utf-8';
+    try{
+        const texto = await fs.promises.readFile(path, encoding);
+        console.log(chalk.green(texto));
+    } catch(erro) {
+        trataErro(erro);
+    } finally {
+        console.log(chalk.yellowBright(`Operação Concluída!`));
+    }
+}
 
-//receber múltiplos argumentos
-console.log(chalk.blue('curso', 'de', 'NodeJS'));
+// function pegaArquivo(path) {
+//     const encoding = 'utf-8';
+//     fs.readFile(path, encoding, (erro, texto) => {
+//         if(erro) {
+//             trataErro(erro);
+//         }
+//         console.log(chalk.greenBright(texto));
+//     })
+// }
 
-//métodos aninhados
-console.log(chalk.red('vermelho', chalk.underline.bgBlue('azul')));
-
-// uso de template strings e placeholders
-console.log(`
-CPU: ${chalk.red('90%')}
-RAM: ${chalk.green('40%')}
-DISK: ${chalk.yellow('70%')}
-`);
+pegaArquivo('./arquivos/texto1.md');
