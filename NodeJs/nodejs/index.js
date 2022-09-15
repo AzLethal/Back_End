@@ -15,23 +15,19 @@ function extraiLinks(texto) {
 
         })
     }
-    return arrayResultados;
+    return arrayResultados.length === 0 ? 'Não há Links' : arrayResultados;
 }
 
 //promises with "async e await"
-async function pegaArquivo(path) {
+export async function pegaArquivo(path) {
     const encoding = 'utf-8';
     try{
         const texto = await fs.promises.readFile(path, encoding);
-        console.log(extraiLinks(texto));
+        return extraiLinks(texto);
     } catch(erro) {
         trataErro(erro);
-    } finally {
-        console.log(chalk.yellowBright(`Operação Concluída!`));
     }
 }
-
-pegaArquivo('./arquivos/texto1.md');
 
 //promises with "then"
 /*
